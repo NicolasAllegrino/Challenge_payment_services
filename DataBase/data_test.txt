@@ -1,0 +1,43 @@
+REGISTRAR BOLETA
+{
+    "create_tax": {
+        "tipo_de_servicio": "Luz",
+        "descripcion_del_servicio": "Edenor S.A.",
+        "importe_del_servicio": 10525.52,
+        "fecha_de_vencimiento": "2022/08/10",
+        "status_del_pago": "pending"
+    }
+}
+
+
+
+REGISTRAR PAGO DE BOLETA
+{
+    "pay_tax":
+    {
+        "metodo_de_pago": "cash",
+        "numero_de_tarjeta": "123456",
+        "importe_del_pago": 10525.52,
+        "codigo_de_barra": 1,
+        "fecha_de_pago": "2022-07-21"
+    }
+}
+
+
+CONSULTAS BOLETAS IMPAGAS
+{
+    "payables":
+    {
+        "tipo_de_servicio": "Luz"
+    }
+}
+
+
+CONSULTA TRANSACCIONES
+{
+    "transactions":
+    {
+        "fecha_desde": "2022-05-01",
+        "fecha_hasta": "2022-09-01"
+    }
+}

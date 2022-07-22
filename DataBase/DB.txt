@@ -1,0 +1,26 @@
+#CREAR LA BASE DE DATOS
+create database challenge_payment_services;
+
+use challenge_payment_services;
+
+#CREAR LAS TABLAS
+create table payables(
+	codigo_de_barra bigint not null auto_increment,
+	tipo_de_servicio nvarchar(100),
+	descripcion_del_servicio nvarchar(256),
+    importe_del_servicio decimal(12,2),
+	fecha_de_vencimiento date,
+    status_del_pago nvarchar(10),
+    primary key (codigo_de_barra)
+);
+
+create table transactions(
+	id int not null auto_increment,
+    metodo_de_pago nvarchar(11),
+    numero_de_tarjeta varchar(20),
+    importe_del_pago decimal(12,2),
+    codigo_de_barra bigint not null,
+    fecha_de_pago date,
+    primary key (id),
+	foreign key (codigo_de_barra) references payables(codigo_de_barra)
+);
