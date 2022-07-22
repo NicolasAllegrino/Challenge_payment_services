@@ -9,7 +9,7 @@ Al descargar el Code y al descomprimirlo, puiede que sea con el nombre Challenge
 
 ### Base de Datos
 Esta API REST está desarrollada utilizando una Base de Datos de MySQL<br>
-Para crear la  base de datos y sus tablas, copiar y ejecutar en su gestor de Base de Datos MySQL (En mi caso he utilizado MySQL Workbench) los comandos del archivo DB.txt que se encuentra en el directorio: ...\Challenge_payment_services\DataBase\<br>
+Para crear la  base de datos y sus tablas, copiar y ejecutar en su gestor de Base de Datos MySQL (En mi caso he utilizado MySQL Workbench) los comandos del archivo DB.txt que se encuentra en el directorio: ...\Challenge_payment_services\DataBase <br>
 Una vez creada la base de datos, se deberán establecer los atributos de conexión a la misma en el archivo:  ...\Challenge_payment_services\src\api_rest\config.py<br>
 Abrir el archivo config.py en un editor de texto y completar los atributos con los siguientes datos:<br>
    * MYSQL_HOST = 'localhost' (ó el nombre de HOST de su equipo)
