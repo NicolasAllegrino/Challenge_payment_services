@@ -52,9 +52,14 @@ Si no surge ningún error, debería imprimirle por pantalla datos como los sigui
                             }
                         }
  * data response: JSON = {
+                                                "create_tax":   (Se excluye si no se registró correctamente la boleta)
+                                                {
+                                                    "codigo_de_barra": INT
+                                                }
                                                 "message": "STRING",
                                                 "error": INT
                                             }<br>
+`create_tax`: Si la boleta se creo correctamente, envío el codigo_de_barra correspondiente a la boeta<br>
 `message`: Describe el mensaje de respuesta<br>
 `error`: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
 
