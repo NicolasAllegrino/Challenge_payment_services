@@ -36,9 +36,14 @@ def create_tax():
     :return: Retorno un JSON con información del resultado del proceso al registrar la boleta
             ESTRUCTURA DEL JSON DE RESPUESTA =
                                             {
+                                                "create_tax":
+                                                {
+                                                    "codigo_de_barra": INT
+                                                }
                                                 "message": "STRING",
                                                 "error": INT
                                             }
+            :create_tax: Si la boleta se creo correctamente, envío el codigo_de_barra correspondiente a la boeta
             :message: Describe el mensaje de respuesta
             :error: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)
     """
@@ -63,14 +68,22 @@ def create_tax():
 
             #Preparo y ejecuto la consulta a la BD para guardar el registro
             sql = f"""INSERT INTO payables (tipo_de_servicio, descripcion_del_servicio, importe_del_servicio, fecha_de_vencimiento, status_del_pago)
-                    VALUES ('{req["create_tax"]["tipo_de_servicio"]}', '{req["create_tax"]["descripcion_del_servicio"]}',
-                    {req["create_tax"]["importe_del_servicio"]}, '{req["create_tax"]["fecha_de_vencimiento"]}', '{req["create_tax"]["status_del_pago"]}')"""
+                                VALUES ('{req["create_tax"]["tipo_de_servicio"]}', '{req["create_tax"]["descripcion_del_servicio"]}',
+                                {req["create_tax"]["importe_del_servicio"]}, '{req["create_tax"]["fecha_de_vencimiento"]}', '{req["create_tax"]["status_del_pago"]}')"""
             cursor = conexion.connection.cursor()
             cursor.execute(sql)
+
+            # Consulto el codigo_de_barra del último registro
+            sql_get_last_codigo_de_barra = "SELECT MAX(codigo_de_barra) FROM payables"
+            cursor = conexion.connection.cursor()
+            cursor.execute(sql_get_last_codigo_de_barra)
+            result = cursor.fetchone()
+            create_tax = {"codigo_de_barra": result[0]}
+
             conexion.connection.commit()
-            return jsonify({"message": "Se ha registrado correctamente la boleta de pago.", "error": 0})
-    except Exception:
-        return jsonify({"message": "Ha ocurrido un error al crear la boleta de pago.", "error": 1.0})
+            return jsonify({"create_tax": create_tax, "message": "Se ha registrado correctamente la boleta de pago.", "error": 0})
+    except Exception as Err:
+        return jsonify({"message": f"Ha ocurrido un error al crear la boleta de pago.{Err}", "error": 1.0})
 
 
 # ENDPOINT POST para efectuar el pago de un impuesto
@@ -256,7 +269,7 @@ def transactions():
                                                 "message": "STRING",
                                                 "error": INT
                                             }
-            :transactions: Lista los pagos realizados entre las fechas solicitadas.
+            :transacciones: Lista los pagos realizados entre las fechas solicitadas.
                 :fecha_de_pago: Fecha en la que se efectuó el pago de la boleta
                 :importe_acumulado: Suma de los importes de los pagos efectuados con la misma fecha_de_pago
                 :cantidad_de_transacciones: Cantidad de pagos efectuados en la fecha_de_pago
