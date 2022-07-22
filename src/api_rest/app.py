@@ -36,7 +36,7 @@ def create_tax():
     :return: Retorno un JSON con información del resultado del proceso al registrar la boleta
             ESTRUCTURA DEL JSON DE RESPUESTA =
                                             {
-                                                "create_tax":
+                                                "create_tax":   (Se excluye si no se registró correctamente la boleta)
                                                 {
                                                     "codigo_de_barra": INT
                                                 }
