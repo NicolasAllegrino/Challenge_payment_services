@@ -256,7 +256,7 @@ def transactions():
                                                 "message": "STRING",
                                                 "error": INT
                                             }
-            :transacciones: Lista los pagos realizados entre las fechas solicitadas.
+            :transactions: Lista los pagos realizados entre las fechas solicitadas.
                 :fecha_de_pago: Fecha en la que se efectuó el pago de la boleta
                 :importe_acumulado: Suma de los importes de los pagos efectuados con la misma fecha_de_pago
                 :cantidad_de_transacciones: Cantidad de pagos efectuados en la fecha_de_pago
