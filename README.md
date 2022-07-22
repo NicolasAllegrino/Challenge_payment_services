@@ -136,8 +136,9 @@ Si no surge ningún error, debería imprimirle por pantalla datos como los sigui
 ## Consumir la API
 Para probar y consumir los servicios de la API, se puede realizar mediante POSTMAN (por ejemplo)<br>
 La consulta se realiza hacia la URL detallada arriba (URL REQUEST), seguido del endpoint requerido.<br>
-> Por ejemplo: http://127.0.0.1:5000/transactions
+> Por ejemplo: http://127.0.0.1:5000/transactions<br>
 > NOTA: La URL puede variar según el equipo. Puede ser http://localhost:5000/... o también cambiar el valor :5000 por el en N° de su puesto configurado.
+
 Las peticiones a la API se configuraron mediante methods POST<br>
 Como data request en el Body de la consulta, se debe enviar un JSON con la estructura especificada en el data request de cada endpoint<br>
-> NOTA: En el archivo data_test.txt dentro del directorio DataBase se encuentran algunos datos de pruebas correspondientes a cada endpoint
+En el archivo data_test.txt dentro del directorio DataBase se encuentran algunos datos de pruebas correspondientes a cada endpoint
