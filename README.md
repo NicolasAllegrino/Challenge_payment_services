@@ -7,9 +7,9 @@ Descargar el directorio Challenge_payment_services en la hubicación que prefier
 
 ### Base de Datos
 Esta API REST está desarrollada utilizando una Base de Datos de MySQL<br>
-Para crear la  base de datos y sus tablas, copiar y ejecutar los comandos de DB.txt en su gestor de Base de Datos MySQL (En mi caso he utilizado MySQL Workbench)<br>
-Una vez creada la base de datos, se deberá establecer los atributos de conexión a la misma en el archivo ...\Challenge_payment_services\src\api_rest\config.py<br>
-Por lo tanto se deberá abrir el mismo en un editor de texto y completar los atributos con los siguientes datos:<br>
+Para crear la  base de datos y sus tablas, copiar y ejecutar en su gestor de Base de Datos MySQL (En mi caso he utilizado MySQL Workbench) los comandos del archivo DB.txt que se encuentra en el directorio: ...\Challenge_payment_services\DataBase\<br>
+Una vez creada la base de datos, se deberán establecer los atributos de conexión a la misma en el archivo:  ...\Challenge_payment_services\src\api_rest\config.py<br>
+Abrir el archivo config.py en un editor de texto y completar los atributos con los siguientes datos:<br>
    * MYSQL_HOST = 'localhost' (ó el nombre de HOST de su equipo)
    * MYSQL_USER = 'root'  (ó el nombre de usuario de su gestor de Base de Datos MySQL)
    * MYSQL_PASSWORD = 'CONTRASEÑA' (colocar la contraseña de su conexión a la Base de Datos)
@@ -38,9 +38,6 @@ Si no surge ningún error, debería imprimirle por pantalla datos como los sigui
 
 
 ## Endpoints del servicio de la API
-Para consumir los servicios de la API, se puede realizar mediante POSTMAN (por ejemplo)<br>
-La consulta se realiza hacia la URL detallada arriba (URL REQUEST), seguido del endpoint requerido.<br>
-Las peticiones a la API se configuraron mediante methods POST
 ### 1. Para crear una boleta de pago
  * endpoint: /create-tax
  * methods: POST
@@ -58,8 +55,8 @@ Las peticiones a la API se configuraron mediante methods POST
                                                 "message": "STRING",
                                                 "error": INT
                                             }<br>
-:message: Describe el mensaje de respuesta<br>
-:error: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
+`message`: Describe el mensaje de respuesta<br>
+`error`: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
 
 ### 2. Para efectuar el pago de un impuesto
  * endpoint: /pay-tax
@@ -78,8 +75,8 @@ Las peticiones a la API se configuraron mediante methods POST
                                                 "message": "STRING",
                                                 "error": INT
                                             }<br>
-:message: Describe el mensaje de respuesta<br>
-:error: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
+`message`: Describe el mensaje de respuesta<br>
+`error`: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
 
 ### 3. Para listar las boletas impagas según se detalle el tipo de servicio a consultar, o no.
  * endpoint: /payables
@@ -103,9 +100,9 @@ Las peticiones a la API se configuraron mediante methods POST
                                                 "message": "STRING",
                                                 "error": INT
                                             }<br>
-:payables: Lista las boletas impagas (si las hay).<br>
-:message: Describe el mensaje de respuesta<br>
-:error: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
+`payables`: Lista las boletas impagas (si las hay).<br>
+`message`: Describe el mensaje de respuesta<br>
+`error`: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
 
 ### 4. Para listar los pagos (transacciones) entre un periodo de fechas
  * endpoint: /transactions
@@ -129,9 +126,18 @@ Las peticiones a la API se configuraron mediante methods POST
                                                 "message": "STRING",
                                                 "error": INT
                                             }<br>
-:transacciones: Lista los pagos realizados entre las fechas solicitadas.<br>
-                :fecha_de_pago: Fecha en la que se efectuó el pago de la boleta<br>
-                :importe_acumulado: Suma de los importes de los pagos efectuados con la misma fecha_de_pago<br>
-                :cantidad_de_transacciones: Cantidad de pagos efectuados en la fecha_de_pago<br>
-:message: Describe el mensaje de respuesta<br>
-:error: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
+`transactions`: Lista los pagos realizados entre las fechas solicitadas.<br>
+                `fecha_de_pago`: Fecha en la que se efectuó el pago de la boleta<br>
+                `importe_acumulado`: Suma de los importes de los pagos efectuados con la misma fecha_de_pago<br>
+                `cantidad_de_transacciones`: Cantidad de pagos efectuados en la fecha_de_pago<br>
+`message`: Describe el mensaje de respuesta<br>
+`error`: Describe el número de error. Si no surgió ningún error -> "error": 0 (error interno para determinar en dónde se originó)<br>
+
+## Consumir la API
+Para probar y consumir los servicios de la API, se puede realizar mediante POSTMAN (por ejemplo)<br>
+La consulta se realiza hacia la URL detallada arriba (URL REQUEST), seguido del endpoint requerido.<br>
+> Por ejemplo: http://127.0.0.1:5000/transactions
+> NOTA: La URL puede variar según el equipo. Puede ser http://localhost:5000/... o también cambiar el valor :5000 por el en N° de su puesto configurado.
+Las peticiones a la API se configuraron mediante methods POST<br>
+Como data request en el Body de la consulta, se debe enviar un JSON con la estructura especificada en el data request de cada endpoint<br>
+> NOTA: En el archivo data_test.txt dentro del directorio DataBase se encuentran algunos datos de pruebas correspondientes a cada endpoint
