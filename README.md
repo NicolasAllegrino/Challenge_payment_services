@@ -20,11 +20,12 @@ Abrir el archivo config.py en un editor de texto y completar los atributos con l
 
 ### Iniciar la API REST en entorno virtual
 Abrir la consola de comandos y posicionarde en el directorio raíz Challenge_payment_services.<br>
-Ya posicionados en ese directorio, ingresamos .\env\Scripts\activate, quedando, por ejemplo:<br>
+Ya posicionados en ese directorio,<br> 
+ejecutamos: .\env\Scripts\activate<br>
 ...\Challenge_payment_services>.\env\Scripts\activate<br>
-y aceptamos, y en la siguiente línea tiene que aparecer primero con (env) ...\Challenge_payment_services> (Ya habremos iniciado el entorno virtual de Python)<br>
+y en la siguiente línea tiene que aparecer primero con (env) ...\Challenge_payment_services> (Ya habremos iniciado el entorno virtual de Python)<br>
 Luego ejecutamos: py .\src\api_rest\app.py<br>
-...\Challenge_payment_services>py .\src\api_rest\app.py<br>
+(env)...\Challenge_payment_services>py .\src\api_rest\app.py<br>
 Con eso ya debería de estar funcionando el servicio de Flask localmente...<br>
 Si no surge ningún error, debería imprimirle por pantalla datos como los siguientes:<br>
  * Serving Flask app 'app' (lazy loading)
