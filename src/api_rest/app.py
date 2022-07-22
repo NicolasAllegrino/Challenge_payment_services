@@ -117,25 +117,18 @@ def pay_tax():
         req = request.get_json(force=True)
         req_keys = list(req["pay_tax"].keys())
         req_values = list(req["pay_tax"].values())
-        print(req_values)
 
         # valido que no haya ningún dato vacío
         if "" in req_values:
             index_vacio = req_values.index("")
             #Si el pago se efectúa con tarjeta, el numero_de_tarjeta no debe estar vacío
-            metodo_de_pago = req["pay_tax"]["metodo_de_pago"]
-            print(metodo_de_pago)
-            data_index_vacio = req_keys[index_vacio]
-            print(data_index_vacio)
             if (str(req["pay_tax"]["metodo_de_pago"]) != 'cash') and (str(req_keys[index_vacio]) == "numero_de_tarjeta"):
                 msj = f"Si abona con tarjeta, el valor de {req_keys[index_vacio]} no puede estar vacío."
                 return jsonify({"message": msj, "error": 2.1})
-            if (str(req["pay_tax"]["metodo_de_pago"]) == 'cash') and (str(req_keys[index_vacio]) != "numero_de_tarjeta"):
-                msj = f"El valor de {req_keys[index_vacio]} no puede estar vacío."
-                return jsonify({"message": msj, "error": 2.2})
             else:
                 msj = f"El valor de {req_keys[index_vacio]} no puede estar vacío."
-                return jsonify({"message": msj, "error": 2.3})
+                return jsonify({"message": msj, "error": 2.2})
+
         # Valido que el importe del pago sea mayor a 0
         #NOTA: También se podría considerar que importe_del_pago sea igual al importe_del_servicio de la boleta que corresponde
         elif req["pay_tax"]["importe_del_pago"] <= 0:
@@ -146,14 +139,17 @@ def pay_tax():
         req["pay_tax"]["fecha_de_pago"] = datetime.strptime(req["pay_tax"]["fecha_de_pago"], '%Y-%m-%d')
 
         # Preparo y ejecuto la consulta a la BD
-        sql = f"""SELECT status_del_pago FROM payables WHERE  codigo_de_barra = {req["pay_tax"]["codigo_de_barra"]}"""
+        sql = f'SELECT status_del_pago FROM payables WHERE  codigo_de_barra = {req["pay_tax"]["codigo_de_barra"]}'
         cursor = conexion.connection.cursor()
         cursor.execute(sql)
         status_pago = cursor.fetchone()
+        conexion.connection.commit()
 
-        #Valido si la boleta ya fue abonada o no
-        if 'paid' in status_pago:
-            conexion.connection.commit()
+        #Valido si existe la boleta a abonar
+        if status_pago == None:
+            return jsonify({"message": f"NO existe la boleta con el código de barra: {req['pay_tax']['codigo_de_barra']}.", "error": 0})
+        # Valido si la boleta ya fue abonada o no
+        elif 'paid' in status_pago:
             return jsonify({"message": f"La boleta {req['pay_tax']['codigo_de_barra']} ya fue pagada.", "error": 0})
         else:
             # Determino el N° de la tarjeta si el pago se efectúa con tarjeta, caso contrario envío vacío
@@ -175,7 +171,7 @@ def pay_tax():
             return jsonify({"message": "Se ha registrado correctamente el pago de la boleta.", "error": 0})
 
     except Exception as Err:
-        return jsonify({"message": f"Ha ocurrido un error al efectuar el pago de la boleta.", "error": 2.0})
+        return jsonify({"message": f"Ha ocurrido un error al efectuar el pago de la boleta.{Err}", "error": 2.0})
 
 
 # ENDPOINT POST para listar las boletas impagas según se detalle el tipo de servicio a consultar, o no.
