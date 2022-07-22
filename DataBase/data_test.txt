@@ -1,4 +1,5 @@
-REGISTRAR BOLETA
+# REGISTRAR BOLETA
+* Boleta 1
 {
     "create_tax": {
         "tipo_de_servicio": "Luz",
@@ -9,22 +10,78 @@ REGISTRAR BOLETA
     }
 }
 
+* Boleta 2
+{
+    "create_tax": {
+        "tipo_de_servicio": "Gas",
+        "descripcion_del_servicio": "EMUGas S.A.",
+        "importe_del_servicio": 5872.33,
+        "fecha_de_vencimiento": "2022/08/15",
+        "status_del_pago": "pending"
+    }
+}
+
+* Boleta 3
+{
+    "create_tax": {
+        "tipo_de_servicio": "Agua",
+        "descripcion_del_servicio": "AMOS",
+        "importe_del_servicio": 1520.00,
+        "fecha_de_vencimiento": "2022/08/3",
+        "status_del_pago": "pending"
+    }
+}
 
 
-REGISTRAR PAGO DE BOLETA
+
+# REGISTRAR PAGO DE BOLETA
+* Pago 1
 {
     "pay_tax":
     {
         "metodo_de_pago": "cash",
-        "numero_de_tarjeta": "123456",
+        "numero_de_tarjeta": "",
         "importe_del_pago": 10525.52,
         "codigo_de_barra": 1,
         "fecha_de_pago": "2022-07-21"
     }
 }
 
+* Pago 2
+{
+    "pay_tax":
+    {
+        "metodo_de_pago": "credit_card",
+        "numero_de_tarjeta": "123456",
+        "importe_del_pago": 5872.33,
+        "codigo_de_barra": 2,
+        "fecha_de_pago": "2022-07-21"
+    }
+}
 
-CONSULTAS BOLETAS IMPAGAS
+* Pago 3
+{
+    "pay_tax":
+    {
+        "metodo_de_pago": "debit_card",
+        "numero_de_tarjeta": "987654",
+        "importe_del_pago": 1520.00,
+        "codigo_de_barra": 3,
+        "fecha_de_pago": "2022-07-21"
+    }
+}
+
+
+# CONSULTAS BOLETAS IMPAGAS
+* Consulta 1
+{
+    "payables":
+    {
+        "tipo_de_servicio": ""
+    }
+}
+
+* Consulta 2
 {
     "payables":
     {
@@ -33,7 +90,8 @@ CONSULTAS BOLETAS IMPAGAS
 }
 
 
-CONSULTA TRANSACCIONES
+# CONSULTA TRANSACCIONES
+* Consulta 1
 {
     "transactions":
     {
@@ -41,3 +99,5 @@ CONSULTA TRANSACCIONES
         "fecha_hasta": "2022-09-01"
     }
 }
+
+> NOTA: Se pueden realizar otros registros y consultas con datos distintos o vacíos y ver las respuestas de la API 
