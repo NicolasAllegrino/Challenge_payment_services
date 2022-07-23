@@ -4,7 +4,7 @@ Desarrollada en Python para el Desafio Back-end de New Combin (el mismo se puede
 
 ## Pasos y configuraciones para ejecutar la API REST
 Descargar el directorio Challenge_payment_services en la hubicación que prefieran.<br>
-Al descargar el Code y al descomprimirlo, puiede que sea con el nombre Challenge_payment_services-main<br>
+Al descargar/clonar el proyecto y al descomprimirlo, puede que tenga el nombre Challenge_payment_services-main<br>
 > NOTA: En las descripciones el directorio Challenge_payment_services-main puede ser Challenge_payment_services
 
 ### Base de Datos
