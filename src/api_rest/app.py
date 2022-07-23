@@ -50,13 +50,11 @@ def create_tax():
 
     try:
         req = request.get_json(force=True)
-        req_keys = list(req["create_tax"].keys())
-        req_values = list(req["create_tax"].values())
 
-        #valido que no haya ningún dato vacío
-        if "" in req_values:
-            index_vacio = req_values.index("")
-            return jsonify({"message": f"El valor de {req_keys[index_vacio]} no puede estar vacío.", "error": 1.1})
+        # valido que no haya ningún dato vacío
+        campo_vacio = [p for p in req["create_tax"] if req["create_tax"][p] == ""]
+        if len(campo_vacio) > 0:
+            return jsonify({"message": f"El campo {campo_vacio[0]} no puede estar vacío", "error": 1.1})
 
         #Valido que el importe del servicio a cargar sea mayor a 0
         elif req["create_tax"]["importe_del_servicio"] <= 0:
@@ -119,16 +117,10 @@ def pay_tax():
         req_values = list(req["pay_tax"].values())
 
         # valido que no haya ningún dato vacío
-        if "" in req_values:
-            index_vacio = req_values.index("")
-            #Si el pago se efectúa con tarjeta, el numero_de_tarjeta no debe estar vacío
-            if (str(req["pay_tax"]["metodo_de_pago"]) != 'cash') and (str(req_keys[index_vacio]) == "numero_de_tarjeta"):
-                msj = f"Si abona con tarjeta, el valor de {req_keys[index_vacio]} no puede estar vacío."
-                return jsonify({"message": msj, "error": 2.1})
-            else:
-                msj = f"El valor de {req_keys[index_vacio]} no puede estar vacío."
-                return jsonify({"message": msj, "error": 2.2})
-
+        campo_vacio = [p for p in req["pay_tax"] if req["pay_tax"][p] == ""]
+        if len(campo_vacio) > 0:
+            if (('card' in req["pay_tax"]["metodo_de_pago"]) and ("numero_de_tarjeta" in campo_vacio)):
+                return jsonify({"message": f"El valor de {campo_vacio[0]} no puede estar vacío.", "error": 2.2})
         # Valido que el importe del pago sea mayor a 0
         #NOTA: También se podría considerar que importe_del_pago sea igual al importe_del_servicio de la boleta que corresponde
         elif req["pay_tax"]["importe_del_pago"] <= 0:
@@ -283,13 +275,11 @@ def transactions():
 
     try:
         req = request.get_json(force=True)
-        req_keys = list(req["transactions"].keys())
-        req_values = list(req["transactions"].values())
 
         # valido que no haya ningún dato vacío
-        if "" in req_values:
-            index_vacio = req_values.index("")
-            return jsonify({"message": f"El valor de {req_keys[index_vacio]} no puede estar vacío.", "error": 4.1})
+        campo_vacio = [p for p in req["transactions"] if req["transactions"][p] == ""]
+        if len(campo_vacio) > 0:
+            return jsonify({"message": f"El campo {campo_vacio[0]} no puede estar vacío", "error": 1.1})
         else:
             # Convierto las fechas de consulta desde y hasta en formato 'AAAA-MM-DD'
             desde = req["transactions"]["fecha_desde"].replace("/", "-")
