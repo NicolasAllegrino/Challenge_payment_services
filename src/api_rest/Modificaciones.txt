@@ -1,5 +1,0 @@
-MODIFICACIONES
-
-> app.py
-En el endpoint pay-tax se modificó las validaciones para permitir "metodo_de_pago" = "cash" y "numero_de_tarjeta" = "" (ó permitir excluir "numero_de_tarjeta" del request)
-En todos los endpoints se optimizaron las validaciones: # valido que no haya ningún dato vacío
